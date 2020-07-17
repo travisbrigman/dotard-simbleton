@@ -1,12 +1,23 @@
 
-import { useBusinesses } from "./BusinessProvider.js"
+//import { useBusinesses,businessesFromNY, manufacturingBusinesses } from "./BusinessProvider.js"
 import { BusinessInfo } from "./Business.js"
+import { businessesFromNY, manufacturingBusinesses, useBusinesses } from "./BusinessProvider.js";
 
 
-const contentTarget = document.querySelector(".business-card")
+// const contentTarget = document.querySelector(".business-card")
 
-export const BusinessList = () => {
-    const arrayOfBusinesses = useBusinesses()
+// export const BusinessList = () => {
+//     const arrayOfBusinesses = useBusinesses()
+
+//     arrayOfBusinesses.forEach(
+//         businessObject => {
+//             contentTarget.innerHTML += BusinessInfo(businessObject)
+//         }
+//     );
+// }
+
+export const addBusinessesToDom = (arrayOfBusinesses, selector) => {
+   const contentTarget = document.querySelector(selector)
 
     arrayOfBusinesses.forEach(
         businessObject => {
@@ -16,21 +27,16 @@ export const BusinessList = () => {
 }
 
 
-  // Create a new array that contains supplies that cost less than $50
-// export const inexpensiveSupplies = supplies.filter(supplyObject => {
-//     if (supplyObject.price < 50.00) {
-//         return true
-//     }
-//     return false
-// })
+export const allTheLists = () => {
+    const allBiz = useBusinesses()
+    const allSelector = ".business-info"
+    addBusinessesToDom(allBiz, allSelector)
 
-export const businessesFromNY = businesses.filter(
-    businessObject => {
-        if (businessObject.addressStateCode === "NY") {
-            return true
-        }
-            return false
-    }
-)
+    const NYBiz = businessesFromNY
+    const NYSelector = ".businessList--newYork"
+    addBusinessesToDom(NYBiz, NYSelector)
 
-console.log(businessesFromNY)
+    const manufacturingBizArray = manufacturingBusinesses
+    const manufacturingSelector = ".businessList--manufacturing"
+    addBusinessesToDom(manufacturingBizArray, manufacturingSelector)
+}
