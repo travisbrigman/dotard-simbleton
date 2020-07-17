@@ -1,20 +1,6 @@
 
-//import { useBusinesses,businessesFromNY, manufacturingBusinesses } from "./BusinessProvider.js"
 import { BusinessInfo } from "./Business.js"
 import { businessesFromNY, manufacturingBusinesses, useBusinesses } from "./BusinessProvider.js";
-
-
-// const contentTarget = document.querySelector(".business-card")
-
-// export const BusinessList = () => {
-//     const arrayOfBusinesses = useBusinesses()
-
-//     arrayOfBusinesses.forEach(
-//         businessObject => {
-//             contentTarget.innerHTML += BusinessInfo(businessObject)
-//         }
-//     );
-// }
 
 export const addBusinessesToDom = (arrayOfBusinesses, selector) => {
    const contentTarget = document.querySelector(selector)
