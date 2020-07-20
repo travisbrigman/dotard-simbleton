@@ -111,11 +111,13 @@ const businesses = [
     }
   ];
 
+
+  //returns a new copy of the above array
   export const useBusinesses = () => {
       return businesses.slice()
   }
 
-
+  //array of businesses from NY
   export const businessesFromNY = businesses.filter(
     businessObject => {
         if (businessObject.addressStateCode === "NY") {
@@ -125,11 +127,23 @@ const businesses = [
     }
 )
 
+//array of manfacturing businesses
 export const manufacturingBusinesses = businesses.filter(
     businessObject => {
         if (businessObject.companyIndustry === "Manufacturing") {
             return true
         }
             return false
+    }
+)
+
+//a new array with Purchasing Agent info
+export const purchasingAgents = businesses.map(
+    businessObject => {
+        return {
+            fullName: businessObject.purchasingAgent.nameFirst + " " + businessObject.purchasingAgent.nameLast,
+            companyName: businessObject.companyName,
+            phoneNumber: businessObject.phoneWork,
+        }
     }
 )
