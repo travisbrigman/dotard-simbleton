@@ -14,9 +14,7 @@ document
             //declarimg the Array from BusinessDataProvider here
             const bizArray = useBusinesses()
 
-
             const searchQuery = document.getElementById("companySearch").value;
-            console.log(searchQuery)
 
             const searchForBusiness = (searchedTerm) => {
                 return bizArray.find(businessObject => businessObject.companyName.toLowerCase().includes(searchedTerm.toLowerCase()))
@@ -49,6 +47,52 @@ document
         }
     });
 
+
+    const agentSearchResultArticle = document.querySelector(".foundAgents")
+
+document
+    .querySelector("#agentSearch")
+    .addEventListener("keypress", keyPressEvent => {
+        if (keyPressEvent.charCode === 13) {
+
+            //declarimg the Array from BusinessDataProvider here
+            const bizArray = useBusinesses()
+
+            const searchQuery = document.getElementById("agentSearch").value;
+
+            const searchForAgent = (searchedTerm) => {
+                return bizArray.find(businessObject => businessObject.purchasingAgent.nameFirst.toLowerCase().includes(searchedTerm.toLowerCase()) ||
+                                                        businessObject.purchasingAgent.nameLast.toLowerCase().includes(searchedTerm.toLowerCase()) 
+                                                        )
+
+            }
+
+            const agentFinder = searchForAgent(searchQuery)
+
+            //if found biz is undefined update
+
+            if (agentFinder !== undefined) {
+                agentSearchResultArticle.innerHTML = `
+                <h2>
+                ${agentFinder.purchasingAgent.nameFirst} ${agentFinder.purchasingAgent.nameLast}
+                </h2>
+                <section>
+                ${agentFinder.companyName}
+                ${agentFinder.addressFullStreet}
+
+                </section>
+                <section>
+                ${agentFinder.addressCity},
+                ${agentFinder.addressStateCode}
+                ${agentFinder.addressZipCode}
+                </section>
+            `;
+            } else {
+                agentSearchResultArticle.innerHTML = `<h2>No Results Found</h2>`
+            }
+            
+        }
+    });
 
 export const addBusinessesToDom = (arrayOfBusinesses, selector, htmlStructure) => {
    const contentTarget = document.querySelector(selector)
